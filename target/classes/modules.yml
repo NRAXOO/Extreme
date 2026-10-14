@@ -1,0 +1,43 @@
+# ======================================================================
+#  EXTREME - modules.yml  (interruptores de cada sistema)
+#  Todo empieza APAGADO para que el servidor no se sienta saturado.
+#  Actívalos uno a uno desde el panel (/admin -> Módulos) o con
+#      /extreme module <clave> on|off
+#  (vidas, ActionBar, PVP aleatorio, dificultad y venganza tienen su propio
+#   interruptor en su archivo; también aparecen en el panel)
+# ======================================================================
+modules:
+  # ---- Mobs ----
+  mob_stats: false          # multiplicadores de daño/vida por mob (mobs.yml)
+  spider_cobweb: false      # arañas que lanzan cobwebs
+  mob_effects: false        # veneno, hambre, lentitud... al golpear
+
+  # ---- MODO PESADILLA ----
+  nightmare: false          # INTERRUPTOR MAESTRO: sin él, nada de lo de abajo funciona
+  nm_spawn: false           # spawn extremo
+  nm_buffs: false           # Fuerza II / Velocidad II a hostiles
+  nm_detection: false       # detección ampliada y persecución con memoria
+  nm_elite: false           # mobs élite
+  nm_zombies: false         # zombie invocador, mini zombies, armaduras
+  nm_spiders: false         # arañas venenosas, techo, veneno largo
+  nm_endermen: false        # endermen agresivos y teletransporte
+  nm_creepers: false        # variantes y creepers eléctricos
+  nm_skeletons: false       # esqueletos aimbot, sniper, flechas especiales
+  nm_golems: false          # golems reforzados y golpe devastador
+  nm_ghast: false           # Ghast Demoníaco en el Nether (explosión personalizada)
+  nm_piglins: false         # piglins siempre enojados
+  nm_animals: false         # animales hostiles
+  nm_chicken: false         # pollos explosivos
+  nm_wardens: false         # wardens en cuevas
+  nm_multiplication: false  # multiplicación de mobs al ser golpeados
+  nm_bosses: false          # mini-jefes
+  nm_world_boss: false      # jefes mundiales programados
+  nm_events: false          # eventos aleatorios
+  nm_acid_rain: false       # lluvia ácida
+  nm_weather: false         # clima extremo y rayos
+  nm_player: false          # supervivencia más dura
+  nm_threat: false          # amenaza individual por jugador
+  nm_sleep: false           # dormir peligroso
+  nm_structures: false      # cofres trampa, aldeas, ancient city, fortaleza
+  nm_zones: false           # zonas malditas
+  nm_fury: false            # furia del mundo (racha de muertes / tras morir)

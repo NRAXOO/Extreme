@@ -1,0 +1,88 @@
+# ======================================================================
+#  EXTREME - config.yml  (ajustes generales)
+# ======================================================================
+plugin:
+  language: es            # reservado para futuras traducciones
+
+server:
+  max-days: 15            # duración máxima del servidor en días
+  day-duration: 24h       # duración de un día. Ej: 24h, 1h, 30m, 5m (usa 1h o menos para pruebas)
+
+storage:
+  autosave-interval: 5m   # cada cuánto se guardan las vidas si hubo cambios
+
+# Textos PLANOS (sin color) usados por PlaceholderAPI
+placeholders:
+  "on": "ACTIVADO"
+  "off": "DESACTIVADO"
+  difficulty-disabled: "Desactivada"
+
+# ----------------------------------------------------------------------
+#  SONIDOS  (nombres de sonido vanilla: ENTITY_WITHER_SPAWN o entity.wither.spawn)
+# ----------------------------------------------------------------------
+sounds:
+  pvp-enabled:
+    enabled: true
+    sound: ENTITY_ENDER_DRAGON_GROWL
+    volume: 1.0
+    pitch: 1.0
+  pvp-disabled:
+    enabled: true
+    sound: BLOCK_BEACON_DEACTIVATE
+    volume: 1.0
+    pitch: 1.0
+  life-lost:
+    enabled: true
+    sound: ENTITY_PLAYER_HURT
+    volume: 1.0
+    pitch: 1.0
+  life-gained:
+    enabled: true
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1.0
+    pitch: 1.2
+  lives-zero:
+    enabled: true
+    sound: ENTITY_WITHER_DEATH
+    volume: 0.8
+    pitch: 1.0
+  day-changed:
+    enabled: true
+    sound: BLOCK_NOTE_BLOCK_CHIME
+    volume: 1.0
+    pitch: 1.0
+  difficulty-increased:
+    enabled: true
+    sound: ENTITY_WITHER_SPAWN
+    volume: 0.7
+    pitch: 1.0
+  difficulty-enabled:
+    enabled: true
+    sound: ENTITY_ENDER_DRAGON_GROWL
+    volume: 0.8
+    pitch: 0.8
+  difficulty-disabled:
+    enabled: true
+    sound: BLOCK_BEACON_DEACTIVATE
+    volume: 0.8
+    pitch: 1.0
+  max-day-reached:
+    enabled: true
+    sound: UI_TOAST_CHALLENGE_COMPLETE
+    volume: 1.0
+    pitch: 1.0
+  gui-click:
+    enabled: true
+    sound: UI_BUTTON_CLICK
+    volume: 0.6
+    pitch: 1.0
+  revenge-start:
+    enabled: true
+    sound: ENTITY_WITHER_AMBIENT
+    volume: 1.0
+    pitch: 0.7
+  revenge-done:
+    enabled: true
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 1.0
+    pitch: 0.6

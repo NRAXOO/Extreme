@@ -1,0 +1,51 @@
+# ======================================================================
+#  EXTREME - actionbar.yml
+#  Placeholders: {pvp} {day} {max_day} {lives} {max_lives} {hearts}
+#                {difficulty} {pvp_random} {pvp_timer}
+#  Colores: &c, &7... y hex &#RRGGBB
+# ======================================================================
+actionbar:
+  enabled: true
+  update-interval: 20     # ticks entre actualizaciones (20 = 1 segundo)
+  mode: ELEMENTS          # ELEMENTS (usa elementos+orden+separador) | FORMAT (usa 'format')
+
+  # --- modo FORMAT ---
+  format: "&c⚔ PVP: {pvp} &7| &e☀ DÍA {day}/{max_day} &7| &c❤ {lives}/{max_lives}"
+
+  # --- modo ELEMENTS ---
+  separator: " &8| "
+  order: [pvp, day, lives, difficulty, pvp_timer]
+  elements:
+    pvp:
+      enabled: true
+      format: "&c⚔ PVP: {pvp}"
+    day:
+      enabled: true
+      format: "&e☀ DÍA &f{day}&7/&f{max_day}"
+    lives:
+      enabled: true
+      format: "&c❤ &f{lives}&7/&f{max_lives}"
+    difficulty:
+      enabled: false
+      format: "&5☠ {difficulty}"
+    pvp_timer:
+      enabled: false
+      format: "&7⏱ {pvp_timer}"
+
+  # Textos que reemplazan a los placeholders
+  values:
+    pvp-on: "&aACTIVADO"
+    pvp-off: "&cDESACTIVADO"
+    random-on: "&aON"
+    random-off: "&cOFF"
+    difficulty-off: "&7Desactivada"
+    lives-disabled: "∞"
+    timer-none: "--:--"
+
+  disabled-worlds: []     # mundos donde NO se muestra la ActionBar
+
+  revenge:
+    enabled: true
+    format: "&4⚔ VENGANZA: &c{killer} &7({time})"
+
+# Venganza entre jugadores: se añade al final de la barra SOLO mientras tengas una venganza pendiente

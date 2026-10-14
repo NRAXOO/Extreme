@@ -1,0 +1,86 @@
+name: Extreme
+version: 1.0.0
+main: com.extreme.ExtremePlugin
+api-version: '1.21'
+description: PVP, vidas, dificultad manual, Modo Pesadilla, venganza entre jugadores y panel por módulos.
+softdepend: [PlaceholderAPI]
+
+commands:
+  panel:
+    description: Abre el panel de administración (todo se configura desde ahí)
+    usage: /panel
+  extreme:
+    description: Recargar configuración y administrar módulos
+    usage: /extreme <recargar|modulos|modulo>
+  pvp:
+    description: Gestiona el PVP
+    usage: /pvp <activar|desactivar|estado|aleatorio>
+  vidas:
+    description: Gestiona las vidas
+    usage: /vidas [jugador|fijar|dar|quitar|reiniciar|lista]
+  dia:
+    description: Consulta o cambia el día del servidor
+    usage: /dia [fijar <día>]
+  pesadilla:
+    description: Administración del Modo Pesadilla
+    usage: /pesadilla <nivel|evento|jefe|zona|invocar|estado|limpiar>
+  venganza:
+    description: Tu venganza pendiente contra quien te mató (jugador contra jugador)
+    usage: /venganza
+
+permissions:
+  extreme.admin:
+    description: Acceso total al plugin y al panel de administración
+    default: op
+    children:
+      extreme.reload: true
+      extreme.pvp: true
+      extreme.pvp.random: true
+      extreme.pvp.status: true
+      extreme.lives: true
+      extreme.lives.view: true
+      extreme.lives.modify: true
+      extreme.day: true
+      extreme.day.set: true
+      extreme.difficulty: true
+      extreme.nightmare: true
+      extreme.revenge.admin: true
+  extreme.nightmare:
+    description: Comandos de administración del Modo Pesadilla
+    default: op
+  extreme.revenge.admin:
+    description: Ver y cancelar venganzas entre jugadores
+    default: op
+  extreme.reload:
+    description: Recargar configuraciones
+    default: op
+  extreme.pvp:
+    description: Activar/desactivar el PVP manualmente
+    default: op
+  extreme.pvp.random:
+    description: Activar/desactivar el PVP aleatorio
+    default: op
+  extreme.pvp.status:
+    description: Ver el estado del PVP
+    default: true
+  extreme.lives:
+    description: Ver las vidas de otros jugadores y la lista
+    default: op
+  extreme.lives.view:
+    description: Ver tus propias vidas
+    default: true
+  extreme.lives.modify:
+    description: Modificar vidas (set/add/remove/reset)
+    default: op
+  extreme.lives.exempt:
+    description: No pierde vidas al morir
+    default: false
+  extreme.day:
+    description: Consultar el día actual
+    default: true
+  extreme.day.set:
+    description: Cambiar el día
+    default: op
+  extreme.difficulty:
+    description: Gestionar la progresión de dificultad
+    default: op

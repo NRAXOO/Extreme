@@ -1,0 +1,11 @@
+# ======================================================================
+#  EXTREME - pvp.yml
+# ======================================================================
+pvp:
+  enabled: false          # estado actual del PVP (se actualiza solo con /pvp on|off)
+  worlds: []              # mundos afectados. Vacío = todos los mundos
+  random:
+    enabled: true         # activa el sistema de PVP aleatorio
+    min-time: 30m         # tiempo mínimo hasta el siguiente cambio
+    max-time: 2h          # tiempo máximo hasta el siguiente cambio
+    manual-resets-timer: true   # si un admin cambia el PVP a mano, el temporizador aleatorio se reinicia

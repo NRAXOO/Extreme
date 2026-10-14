@@ -1,0 +1,94 @@
+# ======================================================================
+#  EXTREME - mobs.yml
+#  Multiplicadores base (módulo "mob_stats" en el panel). La dificultad manual (difficulty.yml)
+#  y el nivel de Pesadilla se MULTIPLICAN encima cuando están activados.
+#  Cualquier mob puede añadirse: usa su nombre de EntityType en minúsculas
+#  (zombie, skeleton, cave_spider, husk, drowned, wither_skeleton, pillager...)
+# ======================================================================
+mobs:
+  enabled: true
+  worlds: []                          # vacío = todos los mundos
+  exclude: [ENDER_DRAGON, WITHER]     # nunca se modifican (jefes)
+  ignore-spawn-reasons: []            # ej: [SPAWNER, SPAWNER_EGG]
+  global-damage-multiplier: 1.0
+  global-health-multiplier: 1.0
+  limits:
+    max-damage-multiplier: 10.0
+    max-health-multiplier: 10.0
+
+  zombie:
+    damage-multiplier: 1.2
+    health-multiplier: 1.2
+  skeleton:
+    damage-multiplier: 1.3
+    health-multiplier: 1.2
+  spider:
+    damage-multiplier: 1.4
+    health-multiplier: 1.3
+  creeper:
+    damage-multiplier: 1.5
+    health-multiplier: 1.0
+
+# ----------------------------------------------------------------------
+#  ARAÑAS CON COBWEBS
+# ----------------------------------------------------------------------
+spider:
+  cobweb:
+    enabled: true
+    chance: 15            # % por golpe/combate (la dificultad diaria puede reemplazarlo)
+    cooldown: 5           # segundos entre usos POR araña
+    radius: 2             # radio alrededor del jugador
+    max-webs-per-use: 6   # cobwebs máximos que se generan por uso
+    duration: 8           # segundos antes de que las cobwebs desaparezcan
+    max-active-webs: 150  # límite global de cobwebs activas (anti-spam)
+    minimum-day: 1        # día REAL del servidor desde el que funciona (1 = siempre)
+    types: [SPIDER, CAVE_SPIDER]
+    worlds: []
+
+# ----------------------------------------------------------------------
+#  EFECTOS AL GOLPEAR  (duration en segundos)
+# ----------------------------------------------------------------------
+mob-effects:
+  enabled: true
+
+  spider:
+    poison:
+      enabled: true
+      chance: 25
+      duration: 5
+      amplifier: 0
+      minimum-day: 1
+  cave_spider:
+    poison:
+      enabled: true
+      chance: 35
+      duration: 6
+      amplifier: 0
+      minimum-day: 1
+  zombie:
+    poison:
+      enabled: false
+      chance: 10
+      duration: 4
+      amplifier: 0
+      minimum-day: 1
+    hunger:
+      enabled: true
+      chance: 15
+      duration: 8
+      amplifier: 0
+      minimum-day: 1
+  skeleton:
+    slowness:
+      enabled: true
+      chance: 15
+      duration: 4
+      amplifier: 0
+      minimum-day: 1
+  wither_skeleton:
+    wither:
+      enabled: true
+      chance: 25
+      duration: 5
+      amplifier: 0
+      minimum-day: 1

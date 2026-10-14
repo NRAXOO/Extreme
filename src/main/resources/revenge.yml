@@ -1,0 +1,15 @@
+# ======================================================================
+#  EXTREME - revenge.yml  (venganza entre jugadores)
+#  Si un jugador mata a otro, la víctima tiene un tiempo para vengarse.
+#  Si lo consigue, le ROBA un corazón (vida) al asesino.
+# ======================================================================
+revenge:
+  enabled: true
+  duration: 10m                 # tiempo que tiene la víctima para vengarse (ej: 5m, 10m, 1h)
+  steal-lives: 1                # corazones que se roban al cumplirse la venganza
+  can-eliminate-target: false   # false = el asesino nunca queda en 0 vidas por una venganza
+  respect-maximum: true         # el vengador no puede superar lives.maximum
+  revenge-kill-creates-revenge: false   # ¿la muerte por venganza abre otra venganza contra el vengador? (cadena)
+  warn-killer: true             # avisar al asesino de que su víctima buscará venganza
+  broadcast: false              # anunciar venganzas en el chat global
+  glow-killer: false            # el asesino brilla (se ve a través de paredes) mientras dure la venganza

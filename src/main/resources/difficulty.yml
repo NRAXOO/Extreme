@@ -1,0 +1,37 @@
+# ======================================================================
+#  EXTREME - difficulty.yml  (DIFICULTAD MANUAL)
+#
+#  Ya NO cambia sola con los días. Aquí tienes un único perfil que editas a mano
+#  o desde el panel:  /admin -> Dificultad  (clic izquierdo +, derecho -, Shift = grande).
+#  Se aplica solo cuando enabled: true  (o con /difficulty on).
+#
+#  mob-damage              multiplicador de daño de mobs hacia jugadores
+#  mob-health              multiplicador de vida máxima (al aparecer el mob)
+#  mob-speed               multiplicador de velocidad (agresividad)
+#  mob-follow-range        multiplicador del rango de persecución
+#  spider-cobweb-chance    % de cobwebs de arañas  ( -1 = usar el valor base de mobs.yml )
+#  effect-chance-bonus     % EXTRA de probabilidad para los efectos de mob-effects
+#  effect-duration-multiplier  multiplicador de duración de esos efectos
+#  buff-chance             % de que un mob hostil aparezca con buffs
+#  buff-amplifier          nivel de los buffs (0 = nivel I)
+#  label                   texto para el placeholder {difficulty}
+# ======================================================================
+difficulty:
+  enabled: false
+  notify-on-join: true
+
+  buffs:
+    count: 1                     # cuántos buffs recibe un mob con buffs
+    effects: [speed, resistance, regeneration, fire_resistance]
+
+  manual:
+    label: "&eManual"
+    mob-damage: 1.0
+    mob-health: 1.0
+    mob-speed: 1.0
+    mob-follow-range: 1.0
+    spider-cobweb-chance: -1
+    effect-chance-bonus: 0
+    effect-duration-multiplier: 1.0
+    buff-chance: 0
+    buff-amplifier: 0

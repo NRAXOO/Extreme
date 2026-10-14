@@ -1,0 +1,494 @@
+# ======================================================================
+#  EXTREME - messages.yml
+#  Todos los textos del plugin. Colores: &c, &l... y hex &#RRGGBB.
+#  Una clave con "" (vacío) silencia ese mensaje.
+#  Los textos de {llaves} son placeholders que reemplaza el plugin.
+# ======================================================================
+prefix: "&8[&cExtreme&8] &r"
+
+states:
+  "on": "&aACTIVADO"
+  "off": "&cDESACTIVADO"
+
+# ---------------------------- Generales -------------------------------
+no-permission: "{prefix}&cNo tienes permiso para hacer esto."
+player-only: "{prefix}&cSolo un jugador puede usar este comando."
+player-not-found: "{prefix}&cNo se encontró al jugador &f{player}&c (debe haber entrado al servidor alguna vez)."
+invalid-number: "{prefix}&c'&f{value}&c' no es un número válido."
+reload-ok: "&a✔ Configuración recargada correctamente."
+reload-error: "&c✖ Error en {file} en la línea {line}."
+reload-error-noline: "&c✖ Error en {file}: {error}"
+reload-kept-old: "&7Se mantiene la configuración anterior. Corrige el archivo y vuelve a usar &f/extreme reload&7."
+help:
+  - "&8&m          &r &cExtreme &7v{version} &8&m          "
+  - "&c/panel &8- &fPanel (todo se configura desde ahí, por módulos)"
+  - "&c/pvp &7| &c/vidas &7| &c/dia &7| &c/venganza"
+  - "&c/pesadilla &8- &fModo Pesadilla (jefes, eventos, zonas)"
+  - "&c/extreme recargar &7| &cmodulos &7| &cmodulo <clave> <activar|desactivar>"
+
+# ------------------------------- PVP ----------------------------------
+pvp-enabled: "&c⚔ &l¡EL PVP HA SIDO ACTIVADO!"
+pvp-disabled: "&a🛡 &l¡EL PVP HA SIDO DESACTIVADO!"
+pvp-already-on: "{prefix}&eEl PVP ya está activado."
+pvp-already-off: "{prefix}&eEl PVP ya está desactivado."
+pvp-random-enabled: "{prefix}&aPVP aleatorio activado."
+pvp-random-disabled: "{prefix}&cPVP aleatorio desactivado."
+pvp-status:
+  - "&8&m          &r &c⚔ Estado del PVP &8&m          "
+  - "&7PVP: {state}"
+  - "&7PVP aleatorio: {random}"
+  - "&7Próximo cambio aleatorio en: &f{timer}"
+usage-pvp: "{prefix}&7Uso: &f/pvp <activar|desactivar|estado|aleatorio activar|desactivar>"
+usage-pvp-random: "{prefix}&7Uso: &f/pvp aleatorio <activar|desactivar>"
+
+# ------------------------------ Vidas ---------------------------------
+lives-lost: "&cHas perdido una vida. Te quedan &f{lives}&c."
+lives-zero: "&4Has perdido todas tus vidas."
+lives-zero-broadcast: "&4☠ &f{player} &cha perdido todas sus vidas y ha sido eliminado."
+lives-gained: "&a❤ Has ganado una vida por eliminar a &f{player}&a. Ahora tienes &f{lives}&a."
+lives-restored: "&a❤ Tus vidas han sido restauradas a &f{lives}&a."
+lives-self: "{prefix}&7Tus vidas: &c{hearts} &f{lives}&7/&f{max_lives}"
+lives-other: "{prefix}&f{player}&7: &c{hearts} &f{lives}&7/&f{max_lives}"
+lives-set: "{prefix}&7Vidas de &f{player} &7establecidas en &f{lives}&7."
+lives-add: "{prefix}&7Se añadieron &f{amount} &7vidas a &f{player}&7. Ahora tiene &f{lives}&7."
+lives-remove: "{prefix}&7Se quitaron &f{amount} &7vidas a &f{player}&7. Ahora tiene &f{lives}&7."
+lives-reset: "{prefix}&7Vidas de &f{player} &7reiniciadas a &f{lives}&7."
+lives-clamped: "{prefix}&eEl valor se limitó al máximo permitido (&f{max_lives}&e)."
+lives-changed-notice: "&eUn administrador modificó tus vidas. Ahora tienes &f{lives}&e/&f{max_lives}&e."
+lives-disabled-notice: "{prefix}&7(El sistema de vidas está desactivado actualmente)"
+lives-list-header: "&8&m          &r &c❤ Vidas &7({count} jugadores) &8&m          "
+lives-list-entry: "&8- &f{player}&7: &c{lives}&7/&c{max_lives}"
+lives-list-more: "&7... y {count} más."
+usage-lives: "{prefix}&7Uso: &f/vidas <fijar|dar|quitar> <jugador> <cantidad> &7| &f/vidas reiniciar <jugador> &7| &f/vidas lista"
+ban-message:
+  - "&cHas perdido todas tus vidas."
+  - "&cHas sido eliminado del servidor."
+
+# ------------------------------- Días ---------------------------------
+day-status: "{prefix}&e☀ Día actual: &f{day}&7/&f{max_day} &8| &7Dificultad: {difficulty}"
+day-set: "{prefix}&7Día establecido en &f{day}&7."
+day-changed: "&e☀ Ha comenzado el día &f{day}&e."
+day-invalid: "{prefix}&cIndica un día entre &f1 &cy &f{max_day}&c."
+max-day-reached: "&6★ &l¡Se ha alcanzado el día máximo ({day}/{max_day})! &r&cLa dificultad está al máximo."
+usage-day: "{prefix}&7Uso: &f/dia &7| &f/dia fijar <día>"
+
+# ---------------------------- Dificultad ------------------------------
+difficulty-enabled: "&5☠ &lLa dificultad manual ha sido ACTIVADA."
+difficulty-disabled: "&a☠ La dificultad manual ha sido desactivada."
+difficulty-already-on: "{prefix}&eLa dificultad ya está activada."
+difficulty-already-off: "{prefix}&eLa dificultad ya está desactivada."
+difficulty-status:
+  - "&8&m          &r &5☠ Dificultad manual &8&m          "
+  - "&7Estado: {state} &8| &7Nivel: {difficulty}"
+  - "&7Daño de mobs: &fx{damage} &8| &7Vida: &fx{health} &8| &7Velocidad: &fx{speed}"
+  - "&7Cobwebs: &f{cobweb} &8| &7Bonus efectos: &f+{effect_bonus}% &8| &7Buffs: &f{buff}%"
+  - "&8Edítala desde &f/panel &8-> Dificultad manual"
+usage-difficulty: "{prefix}&7Uso: &f/difficulty <on|off|status|panel|set|reset>"
+usage-difficulty-set: "{prefix}&7Uso: &f/difficulty set <clave> <valor> &8(claves: {keys})"
+difficulty-value-set: "{prefix}&7Dificultad: &f{key} &7= &f{value}"
+difficulty-reset: "{prefix}&aLa dificultad manual vuelve a sus valores neutros."
+join-difficulty-on: "{prefix}&7Dificultad manual activa: {difficulty}"
+join-difficulty-off: ""
+
+# ------------------------------ Jefe mundial --------------------------
+worldboss-point-added: "{prefix}&aPunto de aparición &f{name} &acreado en &f{x}, {y}, {z}&a."
+worldboss-started: "{prefix}&aCuenta atrás del jefe mundial iniciada."
+worldboss-busy: "{prefix}&cYa hay una cuenta atrás en curso o se alcanzó el límite de jefes."
+
+# ------------------------------ Módulos -------------------------------
+modules-header: "&8&m        &r &6Módulos &8&m        "
+module-line: "&8- &f{key} &7({name}&7): {state}"
+module-set: "{prefix}&7Módulo &f{name}&7: {state}"
+module-unknown: "{prefix}&cMódulo desconocido: &f{key}&c. Usa &f/extreme modulos&c."
+usage-module: "{prefix}&7Uso: &f/extreme modulo <clave> <activar|desactivar>"
+module-no-settings: "{prefix}&7Este módulo no tiene ajustes en el panel."
+
+# ------------------------ Venganza entre jugadores --------------------
+revenge-title: "&4&l⚔ VENGANZA"
+revenge-subtitle: "&c{killer} te ha matado. Tienes &f{time} &cpara vengarte."
+revenge-started: "{prefix}&c{killer} &7te ha matado. Tienes &f{time} &7para vengarte: si lo matas, le robas &c{lives} ❤&7."
+revenge-warning: "{prefix}&e{victim} &7buscará venganza durante &f{time}&7. Si te mata, te robará un corazón."
+revenge-broadcast: "&4⚔ &f{victim} &7busca venganza contra &c{killer}&7."
+revenge-reminder: "{prefix}&7Aún tienes una venganza pendiente contra &c{killer} &7({time})."
+revenge-fulfilled-avenger: "{prefix}&a¡Venganza cumplida! &7Le robaste &c{lives} ❤ &7a &f{target}&7. Ahora tienes &f{total}&7/&f{max_lives}&7."
+revenge-fulfilled-target: "{prefix}&c{avenger} &7se ha vengado de ti y te ha robado &c{lives} ❤&7. Te quedan &f{total}&7."
+revenge-done-title: "&a&l⚔ VENGANZA CUMPLIDA"
+revenge-done-subtitle: "&7Has robado un corazón a &f{target}"
+revenge-done-broadcast: "&4⚔ &f{avenger} &7se ha vengado de &c{target}&7."
+revenge-expired: "{prefix}&7Se acabó el tiempo: ya no puedes vengarte de &c{killer}&7."
+revenge-expired-bar: "&7Tu venganza ha expirado."
+revenge-status: "{prefix}&7Venganza pendiente contra &c{killer}&7. Tiempo restante: &f{time}&7. Recompensa: &c{lives} ❤&7."
+revenge-none: "{prefix}&7No tienes ninguna venganza pendiente."
+revenge-hunted: "{prefix}&e{count} &7jugador(es) buscan vengarse de ti."
+revenge-cancelled: "{prefix}&aVenganza de &f{player} &acancelada."
+revenge-none-other: "{prefix}&c{player} no tiene venganzas (o no está conectado)."
+revenge-list-header: "&8&m        &r &4⚔ Venganzas &7({count}) &8&m        "
+revenge-list-entry: "&8- &f{victim} &7-> &c{killer} &8({time})"
+
+# ------------------------------- Panel --------------------------------
+gui:
+  worldboss:
+    title: "&8☠ &5JEFE MUNDIAL"
+    add-name: "&a+ Añadir punto de aparición aquí"
+    add-lore:
+      - "&7Crea una zona (radio &f{radius}&7) donde"
+      - "&7puede aparecer el jefe mundial."
+      - "&7Ponte en el lugar que quieras."
+    radius-name: "&eRadio de puntos nuevos: &f{radius}"
+    radius-lore:
+      - "&eClic izq: +10 &8| &eClic der: -10"
+      - "&7Shift: x5"
+    status-name: "&6⏱ Estado"
+    status-active: "&4☠ Aparece en &f{time} &7- &c{coords}"
+    status-next: "&7Próximo jefe programado en: &f{time}"
+    status-off: "&7Sin jefe programado."
+    summon-name: "&4☠ Invocar jefe mundial ahora"
+    summon-lore:
+      - "&7Anuncia las coordenadas y"
+      - "&7empieza la cuenta atrás."
+    cancel-name: "&c✖ Cancelar cuenta atrás"
+    cancel-lore:
+      - "&7Detiene la cuenta atrás actual."
+    point-name: "&5{name}"
+    point-lore:
+      - "&7Mundo: &f{world}"
+      - "&7Coordenadas: &f{x}, {y}, {z}"
+      - "&7Radio: &f{radius}"
+      - ""
+      - "&eClic: teletransportarte"
+      - "&eShift + der: borrar"
+    settings-name: "&b⚙ Ajustes del jefe mundial"
+    settings-lore:
+      - "&7Cuenta atrás, cada cuántos días, fuerza..."
+  modules:
+    title-base: "&8☰ &6SISTEMA BASE"
+    title-difficulty: "&8☠ &5DIFICULTAD"
+    title-mobs: "&8☣ &2MOBS"
+    title-nightmare: "&8☠ &4MODO PESADILLA"
+    title-revenge: "&8⚔ &4VENGANZA"
+    summary: "&6Módulos activos: &f{on}&7/&f{total}"
+    summary-lore:
+      - "&7Haz clic en un módulo para"
+      - "&7activarlo o desactivarlo."
+    state-line: "&7Estado: {state}"
+    hint-toggle: "&eClic izquierdo: activar/desactivar"
+    hint-config: "&eClic derecho: configurar"
+    always-on: "&7Siempre activo (protección del servidor)"
+    disable-all: "&c✖ Desactivar todos"
+    disable-all-lore:
+      - "&7Apaga todos los módulos de esta lista"
+      - "&7(el interruptor maestro no se toca)."
+    enable-all: "&a✔ Activar todos"
+    enable-all-lore:
+      - "&7Enciende todos los módulos de esta lista."
+  settings:
+    title: "&8⚙ &9{name}"
+    toggle: "&6{name}: {state}"
+    toggle-lore:
+      - "&eClic para activar/desactivar"
+    entry-name: "&e{label}: &f{value}"
+    entry-lore:
+      - "&8{path}"
+      - "&eClic izq: + &8| &eClic der: -"
+      - "&7Shift: cambio grande"
+    entry-lore-bool:
+      - "&8{path}"
+      - "&eClic para alternar"
+    reload: "&a⟳ Recargar archivos"
+    reload-lore:
+      - "&7Vuelve a leer los YAML."
+  back: "&7« Volver"
+  close: "&c✖ Cerrar"
+  hint-open: "&eClick para abrir"
+  hint-toggle: "&eClick para alternar"
+
+  main:
+    title: "&8⚙ &cPANEL DEL SERVIDOR"
+    pvp-name: "&c⚔ PVP"
+    pvp-lore:
+      - "&7Estado: {state}"
+      - "&7PVP aleatorio: {random}"
+      - ""
+      - "{hint}"
+    lives-name: "&c❤ VIDAS"
+    lives-lore:
+      - "&7Sistema: {state}"
+      - "&7Vidas predeterminadas: &f{default}"
+      - "&7Vidas máximas: &f{max}"
+      - ""
+      - "{hint}"
+    actionbar-name: "&6⚙ ACTIONBAR"
+    actionbar-lore:
+      - "&7Estado: {state}"
+      - ""
+      - "{hint}"
+    day-name: "&e☀ DÍA DEL SERVIDOR"
+    day-lore:
+      - "&7Día actual: &f{day}&7/&f{max_day}"
+      - ""
+      - "{hint}"
+    difficulty-name: "&5☠ DIFICULTAD MANUAL"
+    difficulty-lore:
+      - "&7Estado: {state}"
+      - "&7Ajusta daño, vida, velocidad..."
+      - "&7a mano, sin cambios por día."
+      - ""
+      - "{hint}"
+    mobs-name: "&2☣ MOBS"
+    mobs-lore:
+      - "&7Módulos activos: &f{on}&7/&f{total}"
+      - "&8Multiplicadores, cobwebs y efectos."
+      - ""
+      - "{hint}"
+    nightmare-name: "&4☠ MODO PESADILLA"
+    nightmare-lore:
+      - "&7Interruptor maestro: {state}"
+      - "&7Nivel: &c{level} &8(&4{name}&8)"
+      - "&7Módulos activos: &f{on}&7/&f{total}"
+      - "&8Cada sistema se activa por separado."
+      - ""
+      - "{hint}"
+    revenge-name: "&4⚔ VENGANZA (JUGADOR vs JUGADOR)"
+    revenge-lore:
+      - "&7Estado: {state}"
+      - "&8Solo cuando un jugador mata a otro."
+      - "&8Robas un corazón si te vengas a tiempo."
+      - ""
+      - "{hint}"
+    players-name: "&b👥 JUGADORES Y VIDAS"
+    players-lore:
+      - "&7Jugadores registrados: &f{count}"
+      - ""
+      - "{hint}"
+    reload-name: "&a⟳ Recargar configuración"
+    reload-lore:
+      - "&7Vuelve a leer todos los archivos."
+    base-modules-name: "&6☰ Interruptores del sistema base"
+    base-modules-lore:
+      - "&7PVP aleatorio, vidas y ActionBar"
+      - "&7con su interruptor y ajustes."
+      - ""
+      - "{hint}"
+
+  pvp:
+    title: "&8⚔ &cPVP"
+    enable-name: "&a✔ Activar PVP"
+    enable-lore:
+      - "&7Activa el PVP ahora mismo."
+    disable-name: "&c✖ Desactivar PVP"
+    disable-lore:
+      - "&7Desactiva el PVP ahora mismo."
+    random-name: "&e⏱ PVP aleatorio: {state}"
+    random-lore:
+      - "&eClick para alternar"
+    info-name: "&bEstado del PVP"
+    info-lore:
+      - "&7PVP: {state}"
+      - "&7Aleatorio: {random}"
+      - "&7Próximo cambio: &f{timer}"
+    min-name: "&6Tiempo mínimo: &f{time}"
+    max-name: "&6Tiempo máximo: &f{time}"
+    time-lore:
+      - "&eClick izq: +5m &8| &eClick der: -5m"
+      - "&7Shift: 30 minutos"
+
+  lives:
+    title: "&8❤ &cVIDAS"
+    toggle-name: "&cSistema de vidas: {state}"
+    toggle-lore:
+      - "&7Si se desactiva, nadie pierde vidas"
+      - "&7ni es baneado."
+      - "&eClick para alternar"
+    default-name: "&eVidas por defecto: &f{value}"
+    max-name: "&eVidas máximas: &f{value}"
+    adjust-lore:
+      - "&eClick izq: +1 &8| &eClick der: -1"
+      - "&7Shift: 5"
+    ban-name: "&4Ban al llegar a 0 vidas: {state}"
+    ban-lore:
+      - "&eClick para alternar"
+    players-name: "&bVer jugadores"
+    players-lore:
+      - "&eClick para abrir la lista"
+
+  players:
+    title: "&8👥 &bJUGADORES Y VIDAS"
+    entry-name: "&f{player}"
+    entry-lore:
+      - "&7Vidas: &c{lives}&7/&c{max_lives}"
+      - "&c{hearts}"
+      - ""
+      - "&eClick izq: &a+1 vida"
+      - "&eClick der: &c-1 vida"
+      - "&eShift + izq: &7reiniciar"
+    prev: "&7« Página anterior"
+    next: "&7Página siguiente »"
+    page: "&7Página &f{page}&7/&f{pages}"
+
+  difficulty:
+    title: "&8☠ &5DIFICULTAD"
+    enable-name: "&a✔ ACTIVAR PROGRESIÓN DE DIFICULTAD"
+    enable-lore:
+      - "&7Comienza la progresión desde el día 1"
+      - "&7(según difficulty.yml)."
+    disable-name: "&c✖ DESACTIVAR PROGRESIÓN"
+    disable-lore:
+      - "&7Los cambios de dificultad dejan de aplicarse."
+    info-name: "&5Dificultad actual"
+    info-lore:
+      - "&7Progresión: {state}"
+      - "&7Día: &f{day}&7/&f{max_day} &8| {difficulty}"
+      - "&7Daño de mobs: &fx{damage}"
+      - "&7Vida de mobs: &fx{health}"
+      - "&7Velocidad: &fx{speed}"
+      - "&7Cobwebs: &f{cobweb}"
+      - "&7Bonus de efectos: &f+{effect_bonus}%"
+      - "&7Mobs con buffs: &f{buff}%"
+    day-name: "&e☀ Día actual: &f{day}"
+    day-lore:
+      - "&eClick para cambiar el día"
+    reload-name: "&a⟳ Recargar configuración"
+    reload-lore:
+      - "&7Recarga difficulty.yml y los demás archivos."
+
+  day:
+    title: "&8☀ &eDÍA DEL SERVIDOR"
+    current-name: "&eDía &f{day}&7/&f{max_day}"
+    current-lore:
+      - "&7Dificultad: {difficulty}"
+    plus-name: "&a+{amount} día(s)"
+    minus-name: "&c-{amount} día(s)"
+    set-lore:
+      - "&7Cambia el día y lo anuncia."
+    first-name: "&fIr al día 1"
+    last-name: "&fIr al día máximo ({max_day})"
+
+  actionbar:
+    title: "&8⚙ &6ACTIONBAR"
+    toggle-name: "&6ActionBar: {state}"
+    toggle-lore:
+      - "&eClick para alternar"
+    mode-name: "&eModo: &f{mode}"
+    mode-lore:
+      - "&7ELEMENTS: usa los elementos de abajo."
+      - "&7FORMAT: usa 'format' de actionbar.yml."
+      - "&eClick para cambiar"
+    element-name: "&fElemento &e{name}&f: {state}"
+    element-lore:
+      - "{mode}"
+      - "&eClick para alternar"
+    element-inactive: "&8(solo se usa en modo ELEMENTS)"
+
+# --------------------- Nombres de los módulos (panel) -----------------
+modules:
+  pvp_random:
+    name: "&e⏱ PVP aleatorio"
+    desc: "&7El PVP se activa y desactiva solo cada cierto tiempo."
+  lives:
+    name: "&c❤ Sistema de vidas"
+    desc: "&7Cada jugador tiene vidas; al llegar a 0 es baneado."
+  actionbar:
+    name: "&6⚙ ActionBar"
+    desc: "&7Muestra PVP, día y vidas sobre la hotbar."
+  difficulty:
+    name: "&5☠ Dificultad manual"
+    desc: "&7Perfil único de dificultad que ajustas a mano."
+  revenge:
+    name: "&4⚔ Venganza jugador vs jugador"
+    desc: "&7Si te matan, puedes robar un corazón a tu asesino."
+  mob_stats:
+    name: "&2Multiplicadores de mobs"
+    desc: "&7Daño y vida por tipo de mob (mobs.yml)."
+  spider_cobweb:
+    name: "&fCobwebs de arañas"
+    desc: "&7Las arañas generan telarañas en combate."
+  mob_effects:
+    name: "&aEfectos al golpear"
+    desc: "&7Veneno, hambre, lentitud... al ser golpeado por mobs."
+  nightmare:
+    name: "&4☠ MODO PESADILLA (maestro)"
+    desc: "&7Interruptor maestro: sin él, nada de la Pesadilla funciona. Escala vida, daño y velocidad por nivel."
+  nm_spawn:
+    name: "&cSpawn extremo"
+    desc: "&7Mobs aparecen más cerca y con más frecuencia."
+  nm_buffs:
+    name: "&cBuffs generales"
+    desc: "&7Fuerza II y Velocidad II a mobs hostiles."
+  nm_detection:
+    name: "&eDetección y persecución"
+    desc: "&7Mayor distancia de detección; recuerdan tu última posición."
+  nm_elite:
+    name: "&6Mobs élite"
+    desc: "&7Más vida, daño, brillo y mejores recompensas."
+  nm_zombies:
+    name: "&2Zombies especiales"
+    desc: "&7Invocador, mini zombies, armaduras y armas."
+  nm_spiders:
+    name: "&5Arañas peligrosas"
+    desc: "&7Veneno largo, arañas venenosas, caen del techo."
+  nm_endermen:
+    name: "&dEndermen agresivos"
+    desc: "&7Atacan sin mirarlos y se teletransportan."
+  nm_creepers:
+    name: "&aCreepers especiales"
+    desc: "&7Variantes y creepers eléctricos."
+  nm_skeletons:
+    name: "&7Esqueletos aimbot"
+    desc: "&7Puntería extrema, Sniper y flechas especiales."
+  nm_golems:
+    name: "&fGolems devastadores"
+    desc: "&7Más vida y un golpe letal si los atacas."
+  nm_animals:
+    name: "&eAnimales hostiles"
+    desc: "&7Vacas, cerdos, lobos... pueden atacarte."
+  nm_chicken:
+    name: "&cPollos explosivos"
+    desc: "&7Algunos pollos explotan al acercarte."
+  nm_wardens:
+    name: "&3Wardens en cuevas"
+    desc: "&7Aparecen en cuevas normales (sin Ancient City)."
+  nm_multiplication:
+    name: "&aMultiplicación de mobs"
+    desc: "&7Al golpearlos pueden generar más mobs (con límites)."
+  nm_bosses:
+    name: "&6Mini-jefes"
+    desc: "&7Zombie King, Spider Queen, Creeper King..."
+  nm_world_boss:
+    name: "&4Jefes mundiales"
+    desc: "&7Un jefe gigante cada cierto número de días, con coordenadas y cuenta atrás. Clic derecho: elegir dónde aparece."
+  nm_events:
+    name: "&bEventos aleatorios"
+    desc: "&7Olas, invasiones, apocalipsis, oscuridad..."
+  nm_acid_rain:
+    name: "&2Lluvia ácida"
+    desc: "&7Daña y debilita a quien se moja."
+  nm_weather:
+    name: "&9Clima extremo"
+    desc: "&7Tormentas largas, rayos cerca de jugadores, nieve lenta."
+  nm_player:
+    name: "&cSupervivencia dura"
+    desc: "&7Menos regeneración, comida, durabilidad, XP..."
+  nm_threat:
+    name: "&eAmenaza individual"
+    desc: "&7Cada jugador atrae más enemigos según lo que hace."
+  nm_sleep:
+    name: "&9Dormir peligroso"
+    desc: "&7Puede fallar, emboscadas, noches más largas."
+  nm_structures:
+    name: "&6Estructuras peligrosas"
+    desc: "&7Cofres trampa, aldeas, Ancient City, fortalezas."
+  nm_zones:
+    name: "&5Zonas malditas"
+    desc: "&7Áreas con más spawn, oscuridad y mini-jefes."
+  nm_fury:
+    name: "&4Furia del mundo (mobs)"
+    desc: "&7Si matas demasiados mobs o mueres, el mundo se enfurece. NO es la venganza entre jugadores."
+  performance:
+    name: "&eLímites de rendimiento"
+    desc: "&7Topes de mobs, jefes, hordas y explosiones."
+  nm_ghast:
+    name: "&4Ghast Demoníaco (Nether)"
+    desc: "&7Ghasts enormes con explosión personalizada que aparecen en el Nether."
+  nm_piglins:
+    name: "&6Piglins siempre enojados"
+    desc: "&7Piglins (y brutes) atacan siempre, aunque lleves oro, como los Endermen."

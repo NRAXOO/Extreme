@@ -1,0 +1,726 @@
+# ======================================================================
+#  EXTREME - nightmare.yml   ☠ MODO PESADILLA — APOCALIPSIS ☠
+#  Colores: &c, &4... y hex &#RRGGBB.  Los sonidos usan nombres vanilla.
+#  Probabilidades: 0.10 = 10 %.   Tiempos: en segundos salvo que se indique.
+#  Todo lo de aquí se SUMA a mobs.yml y difficulty.yml (multiplica por encima).
+# ======================================================================
+debug: false
+
+# ----------------------------------------------------------------------
+#  NIVEL DE PESADILLA (global)
+# ----------------------------------------------------------------------
+nightmare:
+  enabled: true
+  worlds: []                    # vacío = todos los mundos
+  starting-level: 1
+  mode: TABLE                   # TABLE (tabla de abajo) | LINEAR (days-per-level)
+  days-per-level: 5             # solo LINEAR: cada 5 días sube un nivel
+  # Día en que EMPIEZA cada nivel (TABLE) y su nombre:
+  table-days: [1, 6, 11, 16, 21, 31, 51]
+  table-names: ["I", "II", "III", "IV", "V", "VI", "EXTREMA"]
+  continue-after-table: true    # tras el último nivel sigue subiendo indefinidamente...
+  beyond-table-days-per-level: 20   # ...un nivel cada 20 días
+  max-level: 100
+  uncapped-days: true           # usa el día real SIN el tope de server.max-days
+  check-interval: 60            # segundos entre comprobaciones de nivel
+  detection:
+    per-level: 1.0              # bloques extra de detección por nivel
+    max-extra: 34
+  level-up:
+    chat: "&4La Pesadilla aumenta..."
+    title: "&4&l⚠ PESADILLA {name} ⚠"
+    subtitle: "&cEl mundo se vuelve más cruel... (nivel {level})"
+    sound: ENTITY_WITHER_SPAWN
+
+  # valor = base + per-level * (nivel - 1), limitado por max
+  scaling:
+    health:            {base: 1.0, per-level: 0.08, max: 4.0}      # multiplicador de vida
+    damage:            {base: 1.0, per-level: 0.05, max: 3.0}      # multiplicador de daño
+    speed:             {base: 1.0, per-level: 0.01, max: 1.3}      # multiplicador de velocidad
+    spawn-rate:        {base: 1.0, per-level: 0.12, max: 4.0}      # frecuencia de aparición
+    mob-count:         {base: 1.0, per-level: 0.08, max: 3.5}      # cantidad de mobs / hordas
+    event-frequency:   {base: 1.0, per-level: 0.10, max: 4.0}      # frecuencia de eventos
+    event-duration:    {base: 1.0, per-level: 0.04, max: 3.0}      # duración de eventos y tormentas
+    elite-chance:      {base: 0.05, per-level: 0.01, max: 0.5}     # probabilidad de élite (absoluta)
+    miniboss-chance:   {base: 0.002, per-level: 0.0008, max: 0.03} # mini-jefe por aparición (absoluta)
+    acid-intensity:    {base: 1.0, per-level: 0.15, max: 5.0}      # lluvia ácida
+    multiplication:    {base: 1.0, per-level: 0.05, max: 3.0}      # multiplicación de mobs
+    animal-hostile-chance: {base: 0.10, per-level: 0.02, max: 0.8} # animales hostiles
+    warden-chance:     {base: 1.0, per-level: 0.10, max: 4.0}      # Wardens en cuevas
+
+# ----------------------------------------------------------------------
+#  BUFFS GENERALES DE MOBS HOSTILES
+# ----------------------------------------------------------------------
+mobs:
+  detection-range: 30           # bloques de detección base (sube con el nivel)
+  strength: 2                   # Fuerza II
+  speed: 2                      # Velocidad II
+  strength-upgrade-level: 10    # desde este nivel: Fuerza III
+  speed-upgrade-level: 10       # desde este nivel: Velocidad III
+  resistance-from-level: 6
+  resistance: 1
+  regeneration-from-level: 12
+  regeneration: 1
+
+ai:
+  max-tracked: 200              # máximo de mobs con IA especial a la vez
+  interval-ticks: 10
+  memory-seconds: 20            # tiempo que recuerdan la última posición del jugador
+  low-health-priority: 12       # a más valor, más prefieren jugadores con poca vida
+
+# ----------------------------------------------------------------------
+#  SPAWN EXTREMO (propio del plugin: no depende de reglas de spawn vanilla)
+#  Puede aparecer en slabs, cuevas, estructuras y lugares "seguros".
+# ----------------------------------------------------------------------
+spawn:
+  enabled: true
+  cycle-ticks: 100              # cada cuántos ticks se procesa el spawn
+  max-players-per-cycle: 6
+  chance: 0.35                  # probabilidad por jugador y ciclo (x spawn-rate)
+  count: 2                      # mobs por tanda (x mob-count)
+  cooldown: 8                   # segundos entre tandas por jugador
+  min-distance: 14
+  max-distance: 32
+  attempts: 6
+  search-up: 5
+  search-down: 12
+  min-y: -60
+  max-y: 320
+  allow-daytime: false          # false = de día solo aparecen en cuevas o durante eventos/zonas/venganza
+  environments: [NORMAL]
+  worlds: []
+  biomes-whitelist: []          # ej: [plains, forest]
+  biomes-blacklist: []          # ej: [mushroom_fields]
+  spider-ceiling-chance: 0.25   # arañas que aparecen en el techo y caen sobre el jugador
+  natural-extra: 0.0            # mobs extra por cada spawn natural vanilla
+  natural-extra-max: 3
+  mobs:
+    ZOMBIE:       {weight: 30, min-level: 1}
+    SKELETON:     {weight: 20, min-level: 1}
+    SPIDER:       {weight: 20, min-level: 1}
+    CREEPER:      {weight: 15, min-level: 1}
+    CAVE_SPIDER:  {weight: 5,  min-level: 3}
+    ENDERMAN:     {weight: 6,  min-level: 3}
+    HUSK:         {weight: 5,  min-level: 5}
+
+# ----------------------------------------------------------------------
+#  PROTECCIÓN DEL SERVIDOR
+# ----------------------------------------------------------------------
+performance:
+  max-mobs-global: 250          # límite global de mobs de la Pesadilla
+  max-mobs-per-player: 50
+  max-event-mobs: 100           # por evento / horda
+  max-bosses: 1
+  max-explosions-per-second: 4
+  despawn-distance: 110         # se limpian los mobs a más de X bloques de todos los jugadores
+  max-age-seconds: 600
+  cleanup-interval: 30
+
+hordes:
+  max-per-player: 1
+  min-distance: 10
+  max-distance: 22
+
+# ----------------------------------------------------------------------
+#  ÉLITES
+# ----------------------------------------------------------------------
+elite:
+  health-bonus: 1.5             # +150 % de vida
+  damage-bonus: 0.6
+  speed-bonus: 0.15
+  glowing: true
+  regeneration: 1
+  particle: FLAME
+  xp-multiplier: 3.0
+  drops:                        # MATERIAL:min-max@probabilidad
+    - "GOLDEN_APPLE:1-2@0.40"
+    - "DIAMOND:1-2@0.15"
+    - "EXPERIENCE_BOTTLE:2-5@0.50"
+    - "ENDER_PEARL:1-2@0.30"
+special-drops:
+  - "IRON_INGOT:2-5@0.60"
+  - "GOLDEN_CARROT:2-4@0.40"
+  - "EXPERIENCE_BOTTLE:1-3@0.40"
+
+# ----------------------------------------------------------------------
+#  ZOMBIES  (invocador, mini zombies, armaduras)
+# ----------------------------------------------------------------------
+zombies:
+  break-doors: true
+  pick-up-items: true           # recogen armas y armaduras del suelo
+  armor-chance: 0.25            # + 1 % por nivel
+  weapon-chance: 0.25
+  enchant-chance: 0.30
+  summoner-chance: 0.06         # Zombie Invocador
+  summoner-health-bonus: 1.0
+  summoner-total: 8             # zombies de la horda (x mob-count)
+  summoner-batch: 3
+  summoner-interval: 40         # ticks entre oleadas
+  summoner-cooldown: 45
+  mini-zombie-chance: 0.08
+  mini-speed-bonus: 0.25
+
+# ----------------------------------------------------------------------
+#  ARAÑAS Y VENENO (hasta 180 s)
+# ----------------------------------------------------------------------
+spiders:
+  venom-chance: 0.12            # Araña Venenosa (veneno prolongado)
+  poison-chance: 0.35
+  poison-duration: 30           # segundos (araña normal)
+poison:
+  max-duration: 180             # tope absoluto de veneno (3 minutos)
+  amplifier: 0
+  special-chance: 0.9
+  special-duration: 180
+
+# ----------------------------------------------------------------------
+#  ENDERMEN
+# ----------------------------------------------------------------------
+enderman:
+  teleport-chance: 0.5
+  behind-chance: 0.5            # probabilidad de teletransportarse DETRÁS del jugador
+  teleport-cooldown: 4
+
+# ----------------------------------------------------------------------
+#  CREEPERS
+# ----------------------------------------------------------------------
+creepers:
+  explosion-radius: 3.0         # radio de explosión de TODOS los creepers (3 = vanilla; x2 si son eléctricos)
+  explosion-fire: false         # ¿las explosiones provocan fuego?
+  explosion-break-blocks: true  # ¿las explosiones destruyen bloques?
+  charged-chance: 0.04
+  charged-per-level: 0.01
+  charged-max: 0.5
+  storm-charged-chance: 0.6     # durante la Tormenta de Creepers
+  variants:                     # probabilidades acumuladas (suma < 1)
+    fast: 0.08
+    invisible: 0.06
+    giant: 0.03
+    fire: 0.07
+    big: 0.06
+    brood: 0.04
+  fast-speed-bonus: 0.6
+  giant-scale-bonus: 1.0
+  giant-radius: 6
+  big-radius: 7
+  brood-amount: 2
+  brood-max-generations: 2
+
+# ----------------------------------------------------------------------
+#  ESQUELETOS AIMBOT
+# ----------------------------------------------------------------------
+skeletons:
+  accuracy: 0.92                # 1.0 = puntería perfecta (predice el movimiento)
+  sniper-chance: 0.08
+  sniper-accuracy: 0.995
+  sniper-health-bonus: 1.0
+  sniper-range: 48
+  burst-chance: 0.25            # segunda flecha rápida
+  sniper-burst-chance: 0.5
+  burst-delay-ticks: 6
+  arrows:                       # probabilidad de cada flecha especial
+    poison: 0.10
+    slowness: 0.08
+    weakness: 0.06
+    explosive: 0.05
+  arrow-poison-duration: 20
+  arrow-explosion-power: 1.8
+  arrow-break-blocks: false
+
+# ----------------------------------------------------------------------
+#  GOLEMS
+# ----------------------------------------------------------------------
+golems:
+  health-multiplier: 2.0
+  damage-multiplier: 2.0
+  resistance: 2
+  enraged-on-hit: true
+  angry-seconds: 40
+  devastating-chance: 0.7       # ataque devastador tras ser golpeado
+  devastating-damage: 1000.0    # letal: fuerza el uso del Tótem de la Inmortalidad
+  devastating-cooldown: 8
+  elite-chance: 0.1
+  elite-health-multiplier: 4.0
+  elite-damage-multiplier: 3.0
+  elite-speed-bonus: 0.4
+  elite-resistance: 3
+
+# ----------------------------------------------------------------------
+#  ANIMALES HOSTILES Y POLLOS EXPLOSIVOS
+# ----------------------------------------------------------------------
+animals:
+  enabled: true
+  types: [COW, PIG, SHEEP, CHICKEN, HORSE, WOLF]
+  spawn-reasons: [NATURAL, CHUNK_GEN, CUSTOM, SPAWNER_EGG, COMMAND]   # SPAWNER_EGG/COMMAND permiten probarlos con huevos
+  strength: 2
+  speed: 2
+  health-multiplier: 1.5
+  detection-range: 16
+  chase-speed: 1.4
+  reach: 2.2
+  attack-cooldown: 1.0
+  damage: 4.0
+chicken:
+  explosive-chance: 0.12        # EXPLOSIVE_CHICKEN
+  show-name: true
+  speed-level: 3                # nivel de Velocidad para que alcancen al jugador
+  trigger-distance: 4.5
+  chase-speed: 1.5
+  countdown: 2.0                # segundos de cuenta atrás
+  power: 2.4
+  break-blocks: false
+
+# ----------------------------------------------------------------------
+#  MULTIPLICACIÓN GENÉRICA (por mob)
+#  trigger: DAMAGE (al recibir daño del jugador) | HIT (al golpear al jugador)
+# ----------------------------------------------------------------------
+multiplication:
+  enabled: true
+  zombie:      {chance: 0.12, amount-min: 1, amount-max: 2, cooldown: 8,  max-entities: 40, max-generations: 3, trigger: DAMAGE, min-level: 1}
+  mini_zombie: {chance: 0.30, amount-min: 2, amount-max: 3, cooldown: 6,  max-entities: 30, max-generations: 3, trigger: DAMAGE, min-level: 1}
+  spider:      {chance: 0.20, amount-min: 1, amount-max: 2, cooldown: 8,  max-entities: 35, max-generations: 2, trigger: DAMAGE, min-level: 1}
+  cave_spider: {chance: 0.20, amount-min: 1, amount-max: 2, cooldown: 8,  max-entities: 25, max-generations: 2, trigger: DAMAGE, min-level: 3}
+  enderman:    {chance: 0.15, amount-min: 1, amount-max: 1, cooldown: 12, max-entities: 10, max-generations: 2, trigger: DAMAGE, min-level: 3}
+  creeper:     {chance: 0.05, amount-min: 1, amount-max: 1, cooldown: 15, max-entities: 15, max-generations: 1, trigger: DAMAGE, min-level: 5}
+
+# ----------------------------------------------------------------------
+#  EVENTOS ALEATORIOS
+# ----------------------------------------------------------------------
+events:
+  enabled: true
+  check-interval: 30            # segundos entre sorteos
+  chance-per-check: 0.25        # x event-frequency x amenaza del jugador
+  global-cooldown: 300          # segundos entre eventos
+  max-concurrent: 2
+  max-per-player: 1
+  hard-cap: 5                   # tope absoluto (incluso con comandos)
+  spawn-multiplier: 1.8         # spawn extra de los jugadores en un evento
+  blood-elite-multiplier: 2.0
+  lightning-chance: 0.12
+  mob-rain-height: 16
+  end-message: "&7El evento ha terminado... por ahora."
+  # scope: PLAYER (solo un jugador) | PLAYERS (jugadores cercanos) | SERVER (todos)
+  list:
+    zombie_wave:
+      name: "&4&lOLA DE ZOMBIES"
+      subtitle: "&cUna horda se aproxima..."
+      chat: "&4&l⚠ LA PESADILLA COMIENZA ⚠ &c{name}"
+      weight: 25
+      cooldown: 600
+      duration: 150
+      scope: PLAYER
+      min-level: 1
+      mobs: [ZOMBIE, HUSK]
+      total: 30
+      batch: 5
+      interval: 60
+      sound: ENTITY_ZOMBIE_VILLAGER_AMBIENT
+    spider_wave:
+      name: "&4&lOLA DE ARAÑAS"
+      subtitle: "&cEl suelo se llena de patas..."
+      weight: 20
+      cooldown: 600
+      duration: 180
+      scope: PLAYER
+      min-level: 2
+      mobs: [SPIDER, CAVE_SPIDER]
+      total: 36
+      batch: 6
+      interval: 60
+      sound: ENTITY_SPIDER_AMBIENT
+    endermen_night:
+      name: "&5&lNOCHE DE ENDERMEN"
+      subtitle: "&dALGO TE ESTÁ OBSERVANDO."
+      weight: 10
+      cooldown: 900
+      duration: 150
+      scope: PLAYER
+      min-level: 3
+      night-only: true
+      mobs: [ENDERMAN]
+      total: 10
+      batch: 2
+      interval: 80
+      sound: ENTITY_ENDERMAN_STARE
+    creeper_storm:
+      name: "&2&lTORMENTA DE CREEPERS"
+      subtitle: "&aSsssss..."
+      weight: 12
+      cooldown: 900
+      duration: 150
+      scope: PLAYER
+      min-level: 2
+      mobs: [CREEPER]
+      total: 20
+      batch: 4
+      interval: 60
+      storm: true
+      lightning: true
+      sound: ENTITY_CREEPER_PRIMED
+    skeleton_invasion:
+      name: "&7&lINVASIÓN DE ESQUELETOS"
+      subtitle: "&8Los huesos marchan..."
+      weight: 14
+      cooldown: 700
+      duration: 150
+      scope: PLAYER
+      min-level: 2
+      mobs: [SKELETON, STRAY]
+      total: 24
+      batch: 4
+      interval: 60
+      sound: ENTITY_SKELETON_AMBIENT
+    mob_rain:
+      name: "&6&lLLUVIA DE MOBS"
+      subtitle: "&eMira hacia arriba..."
+      weight: 8
+      cooldown: 900
+      duration: 60
+      scope: PLAYER
+      min-level: 4
+      mobs: [ZOMBIE, SKELETON, SPIDER, CREEPER]
+      mob-rain: true
+      sound: ENTITY_PHANTOM_SWOOP
+    darkness:
+      name: "&8&lOSCURIDAD"
+      subtitle: "&7La luz se apaga..."
+      weight: 12
+      cooldown: 700
+      duration: 120
+      scope: PLAYERS
+      min-level: 2
+      mobs: [ZOMBIE, SKELETON]
+      total: 12
+      batch: 3
+      interval: 80
+      darkness: true
+      sound: ENTITY_WARDEN_AMBIENT
+    blood:
+      name: "&4&lEVENTO DE SANGRE"
+      subtitle: "&cLos mobs huelen la sangre..."
+      weight: 8
+      cooldown: 900
+      duration: 180
+      scope: PLAYERS
+      min-level: 4
+      blood: true
+      sound: ENTITY_WARDEN_HEARTBEAT
+    acid_rain:
+      name: "&2&lLLUVIA ÁCIDA"
+      subtitle: "&aBúscate un refugio..."
+      weight: 10
+      cooldown: 800
+      duration: 150
+      scope: PLAYERS
+      min-level: 2
+      acid-rain: true
+      sound: BLOCK_LAVA_EXTINGUISH
+    apocalypse:
+      name: "&4&l☠ APOCALIPSIS ☠"
+      subtitle: "&cNadie sobrevivirá..."
+      weight: 3
+      cooldown: 1800
+      duration: 240
+      scope: PLAYERS
+      min-level: 6
+      mobs: [ZOMBIE, SKELETON, SPIDER, CREEPER, ENDERMAN]
+      total: 50
+      batch: 6
+      interval: 50
+      darkness: true
+      storm: true
+      acid-rain: true
+      lightning: true
+      sound: ENTITY_ENDER_DRAGON_GROWL
+    world_invasion:
+      name: "&4&lINVASIÓN MUNDIAL"
+      subtitle: "&cEl mundo entero marcha contra ti..."
+      weight: 2
+      cooldown: 3600
+      duration: 240
+      scope: SERVER
+      min-level: 8
+      mobs: [ZOMBIE, SKELETON, SPIDER, CREEPER, ENDERMAN, HUSK]
+      total: 40
+      batch: 5
+      interval: 50
+      sound: ENTITY_WITHER_SPAWN
+
+# ----------------------------------------------------------------------
+#  MINI-JEFES, JEFES MUNDIALES Y WARDENS
+# ----------------------------------------------------------------------
+bosses:
+  level-scaling: 0.05           # +5 % de vida/daño por nivel
+  mini-pool: [zombie_king, spider_queen, creeper_king, skeleton_sniper, ender_beast, mutated_warden]
+
+  zombie_king:
+    type: ZOMBIE
+    name: "&4&lZombie King"
+    health: 400
+    damage: 14
+    speed-bonus: 0.15
+    scale: 1.8
+    bar-color: RED
+    xp: 600
+    drops: ["NETHERITE_SCRAP:1-2@0.5", "DIAMOND:3-6@1.0", "GOLDEN_APPLE:2-4@1.0", "ENCHANTED_GOLDEN_APPLE:1-1@0.25"]
+    abilities:
+      summon: {cooldown: 12, amount: 5}
+      wave: {cooldown: 50, amount: 16}
+  spider_queen:
+    type: SPIDER
+    name: "&5&lSpider Queen"
+    health: 350
+    damage: 10
+    speed-bonus: 0.25
+    scale: 2.5
+    bar-color: PURPLE
+    xp: 600
+    drops: ["DIAMOND:3-6@1.0", "SPIDER_EYE:8-16@1.0", "STRING:16-32@1.0", "ENDER_PEARL:2-4@0.6"]
+    abilities:
+      summon: {cooldown: 14, amount: 6}
+      web: {cooldown: 8}
+      poison: {cooldown: 20}
+  creeper_king:
+    type: CREEPER
+    name: "&2&lCreeper King"
+    health: 350
+    damage: 10
+    speed-bonus: 0.1
+    scale: 2.2
+    bar-color: GREEN
+    xp: 600
+    # Si el Creeper King EXPLOTA, la explosión es GIGANTESCA (TNT = 4, creeper = 3, aquí 24)
+    explosion-radius: 24
+    explosion-fire: false
+    explosion-break-blocks: true
+    drops: ["DIAMOND:3-6@1.0", "GUNPOWDER:16-32@1.0", "TNT:4-8@0.7"]
+    abilities:
+      summon: {cooldown: 16, amount: 4}
+      explosion: {cooldown: 12, power: 3.0, break-blocks: false}
+      lightning: {cooldown: 20}
+  skeleton_sniper:
+    type: SKELETON
+    name: "&7&lSkeleton Sniper"
+    health: 250
+    damage: 8
+    speed-bonus: 0.2
+    scale: 1.5
+    bar-color: WHITE
+    xp: 500
+    drops: ["DIAMOND:2-5@1.0", "BOW:1-1@0.5", "ARROW:32-64@1.0"]
+    abilities:
+      snipe: {cooldown: 5, damage: 12}
+      retreat: {cooldown: 6}
+  ender_beast:
+    type: ENDERMAN
+    name: "&d&lEnder Beast"
+    health: 450
+    damage: 14
+    speed-bonus: 0.15
+    scale: 1.6
+    bar-color: PINK
+    xp: 700
+    drops: ["ENDER_PEARL:6-12@1.0", "DIAMOND:3-6@1.0", "ELYTRA:1-1@0.1"]
+    abilities:
+      teleport: {cooldown: 6}
+      aoe: {cooldown: 14, radius: 7, damage: 10}
+      summon: {cooldown: 22, amount: 3}
+  mutated_warden:
+    type: WARDEN
+    name: "&3&lMutated Warden"
+    health: 700
+    damage: 24
+    speed-bonus: 0.3
+    scale: 1.3
+    bar-color: BLUE
+    xp: 900
+    drops: ["NETHERITE_INGOT:1-2@0.5", "DIAMOND:5-8@1.0", "ECHO_SHARD:2-4@1.0"]
+    abilities:
+      shockwave: {cooldown: 12, radius: 10, damage: 14}
+
+world-boss:
+  enabled: true
+  first-day: 7                  # primer jefe mundial programado (día real)
+  every-days: 7                 # luego cada N días
+  announce-seconds: 300         # CUENTA ATRÁS desde el anuncio hasta que aparece (con coordenadas)
+  reminders: [300, 120, 60, 30, 10, 5, 3, 2, 1]   # segundos en los que avisa por el chat
+  show-coordinates: true        # anuncia las coordenadas donde aparecerá
+  bar-color: PURPLE
+  prelude-seconds: 12           # clima + oscuridad + latidos en los últimos segundos
+  default-radius: 40            # radio de los puntos nuevos creados desde el panel
+  use-points: true              # aparece en uno de los PUNTOS elegidos (ver abajo)
+  surface-only: true            # en la superficie del punto (false = a la altura Y del punto)
+  random-fallback: true         # si no hay puntos, aparece lejos de un jugador
+  multiplier: 2.5               # fuerza extra sobre el jefe base
+  pool: [zombie_king, spider_queen, creeper_king, ender_beast, mutated_warden]
+  title: "&4&lALGO ANTIGUO HA DESPERTADO."
+  subtitle: "&cLa tierra tiembla..."
+  chat: "&4&lALGO ANTIGUO HA DESPERTADO."
+  # Zonas del mundo donde puede aparecer (se crean desde /panel o con /pesadilla jefe punto <nombre> <radio>)
+  spawn-points: []
+
+wardens:
+  normal-cave-spawn: true       # Wardens en cuevas normales (sin Ancient City)
+  deep-y: 0                     # por debajo de esta Y se consideran cuevas profundas
+  chance: 0.004                 # probabilidad por spawn bajo tierra (x warden-chance)
+  mutated-chance: 0.25
+  max-per-world: 2
+
+# ----------------------------------------------------------------------
+#  NETHER: GHAST DEMONÍACO (explosión personalizada) Y PIGLINS ENOJADOS
+# ----------------------------------------------------------------------
+ghast:
+  demonic-chance: 0.35          # % de ghasts naturales que son demoníacos
+  nether-spawn-chance: 0.25     # aparición propia en el Nether (por ciclo y jugador)
+  nether-cooldown: 20           # segundos entre apariciones
+  max-per-player: 2
+  health: 60                    # vida (un ghast normal tiene 10)
+  scale: 1.6                    # tamaño
+  explosion-power: 4.0          # potencia de CADA bola de fuego (vanilla = 1)
+  incendiary: true              # las bolas provocan fuego
+  break-blocks: true            # las explosiones destruyen bloques
+  extra-fireballs: 2            # bolas extra por disparo (0 = solo una)
+  spread: 0.25                  # apertura de las bolas extra
+  particle: FLAME
+
+piglins:
+  types: [PIGLIN, PIGLIN_BRUTE, ZOMBIFIED_PIGLIN]   # siempre enojados, con o sin oro, como los Endermen
+  detection-range: 30
+  chase-speed: 1.3
+  reach: 2.2
+  attack-cooldown: 1.0
+  damage: 6.0
+
+# ----------------------------------------------------------------------
+#  CLIMA EXTREMO Y LLUVIA ÁCIDA
+# ----------------------------------------------------------------------
+weather:
+  enabled: true
+  check-interval: 60
+  storm-tick-interval: 100
+  storm-chance: 0.08            # por comprobación, mundo despejado (x event-frequency)
+  min-duration: 300
+  max-duration: 900
+  thunder-chance: 0.6
+  acid-chance: 0.25             # tormenta ácida
+  lightning-near-players: true
+  lightning-chance: 0.12
+  lightning-min-distance: 6
+  lightning-max-distance: 20
+  lightning-event-chance: 0.2   # un rayo puede invocar mobs
+  lightning-mobs: 4
+  snow-slowness: true
+  snow-slowness-level: 0
+
+acid-rain:
+  enabled: true
+  max-duration: 180
+  interval-ticks: 40
+  damage: 2.0                   # x acid-intensity
+  max-damage: 8.0
+  helmet-reduces: true
+  effects: ["POISON:100:0@0.3", "WEAKNESS:100:0@0.3", "NAUSEA:80:0@0.15"]
+  message: "&cLa lluvia está quemando tu piel..."
+  message-cooldown: 30
+  title: "&2&lLLUVIA ÁCIDA"
+  subtitle: "&aBúscate un refugio..."
+
+# ----------------------------------------------------------------------
+#  JUGADOR: SUPERVIVENCIA MÁS DURA
+# ----------------------------------------------------------------------
+player:
+  enabled: true
+  regen-multiplier: 0.5         # regeneración natural
+  food-effectiveness: 0.6       # la comida restaura menos hambre
+  saturation-multiplier: 0.5
+  hunger-threshold: 6
+  hunger-effects: ["WEAKNESS:200:0@1.0", "SLOWNESS:200:0@0.5"]
+  starvation-multiplier: 2.5
+  armor-durability-multiplier: 2.0
+  tool-durability-multiplier: 1.5
+  shield-break-min-damage: 5.0
+  shield-break-chance: 0.2
+  shield-disable-ticks: 100
+  shield-extra-damage: 80
+  low-health-threshold: 6.0     # vida (6 = 3 corazones)
+  low-health-cooldown: 20
+  low-health-effects: ["SLOWNESS:100:0@1.0", "WEAKNESS:100:0@1.0"]
+  fall-effect-min-damage: 4.0
+  fall-effects: ["SLOWNESS:100:1@1.0", "NAUSEA:100:0@0.5"]
+  xp-loss-percent: 0.5          # % de experiencia que se pierde al morir (0 = no)
+
+threat:                         # nivel de AMENAZA individual de cada jugador
+  half-life-minutes: 10
+  max: 100
+  bonus-per-point: 0.01
+  max-bonus: 1.0
+
+# ----------------------------------------------------------------------
+#  VENGANZA DEL MUNDO (mobs): racha de muertes y tras morir
+# ----------------------------------------------------------------------
+vengeance:
+  enabled: true
+  window-seconds: 20
+  kills-threshold: 12           # mobs matados en la ventana para activar la venganza
+  duration-seconds: 180
+  spawn-multiplier: 2.0
+  boss-multiplier: 3.0
+  event-multiplier: 2.0
+  horde-chance: 0.4
+  on-death:                     # MODO VENGANZA tras morir
+    enabled: true
+    duration-seconds: 300
+
+# ----------------------------------------------------------------------
+#  DORMIR
+# ----------------------------------------------------------------------
+sleep:
+  enabled: true
+  fail-chance: 0.25             # puede fallar dormir
+  ambush-on-fail-chance: 0.5
+  ambush-chance: 0.2            # emboscada mientras duermes
+  ambush-delay-ticks: 60
+  ambush-mobs: 8
+  long-night-chance: 0.25       # algunas noches se alargan
+  long-night-lock-seconds: 180
+
+# ----------------------------------------------------------------------
+#  ESTRUCTURAS
+# ----------------------------------------------------------------------
+structures:
+  enabled: true
+  check-interval: 100
+  cooldown: 600
+  chest-traps:
+    enabled: true
+    chance: 0.2
+    weights: {ambush: 50, poison: 20, explosion: 15, miniboss: 15}
+  ancient-city:
+    enabled: true
+    event: darkness
+    miniboss-chance: 0.3
+  fortress:
+    enabled: true
+    mobs: [WITHER_SKELETON, BLAZE]
+    mobs-amount: 10
+  village:
+    enabled: true
+    scan-chance: 0.25
+    min-villagers: 3
+    mobs: 14
+
+# ----------------------------------------------------------------------
+#  ZONAS MALDITAS  (crear con /pesadilla zone create <nombre> <radio>)
+# ----------------------------------------------------------------------
+cursed-zones:
+  enabled: true
+  check-interval: 40
+  spawn-multiplier: 2.5
+  boss-multiplier: 3.0
+  darkness: true
+  acid-rain: false
+  particle: SCULK_SOUL
+  enter-title: "&5&lZONA MALDITA"
+  enter-subtitle: "&dAlgo te observa..."
+  exit-message: "&7Sientes cómo la maldición se aleja..."
+  list: []

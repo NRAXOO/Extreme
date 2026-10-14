@@ -1,0 +1,22 @@
+# ======================================================================
+#  EXTREME - lives.yml
+# ======================================================================
+lives:
+  enabled: true           # false = sistema totalmente desactivado (no se pierden vidas ni hay bans)
+  default: 5              # vidas iniciales de cada jugador
+  maximum: 10             # máximo de vidas permitido (3, 5, 10, 20...)
+  ban-on-zero: true       # banear al llegar a 0 vidas
+  death-cooldown: 3       # segundos durante los que una segunda muerte NO resta otra vida (anti-duplicado)
+  pvp-kill-reward: 0      # vidas que gana quien mata a otro jugador (0 = nada)
+  ignore-worlds: []       # mundos donde morir NO resta vidas
+  ignore-causes: []       # causas que NO restan vidas. Ej: [KILL, VOID]  (ver DamageCause de Bukkit)
+  list-limit: 50          # máximo de jugadores mostrados en /lives list
+
+ban:
+  enabled: true           # junto con lives.ban-on-zero. Ambos deben ser true para banear
+  permanent: true
+  duration: 7d            # solo se usa si permanent: false
+  delay-ticks: 5          # espera antes de expulsar (20 ticks = 1 segundo)
+  restore-lives-on-join: true   # si un jugador con 0 vidas entra (ban expirado o desbaneado), recupera las vidas por defecto
+  # Si la API de baneo falla, se usa este comando de consola (solo ban permanente):
+  fallback-command: "ban {player} {reason}"
